@@ -1,0 +1,795 @@
+/*Truman State type font, used for header*/
+@font-face {
+  font-family: 'Hurme Geometric Sans 1 Bold';
+  src: url('HurmeGeometricSans1 Bold.otf') format('truetype');
+}
+
+/*Global styles*/
+html{ 
+  font-family: "Ebrima", Times, serif; /*Used as universal font if viewer does not have the above font downloaded*/
+  color: #510c76;
+  height: 100%; /*Needed to position footer*/
+}
+
+header{
+  background-color: #510c76;
+  font-family: 'Hurme Geometric Sans 1 Bold', sans-serif;
+  font-weight: bold;
+  border-bottom: 2px solid white;
+}
+
+body{
+  display: flex;
+  flex-direction: column;
+  margin: 0px;
+  height: 100%; /*Needed to position footer*/
+}
+
+/* To keep footer constant size*/
+main {
+  flex-grow: 1;
+}
+
+footer{
+  background-color: #510c76;
+  flex-shrink: 0; /* To keep footer constant size*/
+  height: 50px;
+  border-top: 2px solid white;
+}
+
+/*No underline for any link globally*/
+a{
+  text-decoration: none;
+}
+
+/*All links*/
+a:hover{
+  color: #00A8E2;
+}
+
+/*Style active links, decrease height when border is added to maintain constant height*/
+.active{
+  background-image: linear-gradient(90deg, #9a8667, #87714D);
+  height: 56px;
+  border: 2px solid #00A8E2;
+}
+
+/*Styling JSON form display block (p block)*/
+#schoolJSON, #triviaJSON{
+  text-align: center;
+}
+
+/*Class design for a form warning message (p block): appears when invalid form entry is commmitted*/
+.invalid{
+  display: inline;
+  margin: 2px;
+  font-size: 10pt;
+  color: red;
+}
+
+/*Default design for warning message p block: no need to display until form entry error is committed*/
+.valid{
+  display: none;
+}
+
+/*Global style for all submit/reset buttons*/
+input[type="submit"], input[type="reset"]{
+  font-weight: bold;
+  border-radius: 3px;
+  background-color: white;
+  margin: 8px;
+  color: #510c76;  
+}
+
+
+/*Styling nav bar*/
+header nav{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+/*Styling nav elements*/
+nav a, .dropmenu h1{
+  display: flex;
+  align-items: center;
+  height: 60px;
+  font-size: 10pt;
+  color: white;
+  padding-inline: 2.3vw; /*Shrink nav elements horizontally with screen*/
+  margin: 0px;
+}
+
+/*First set of links (homemenu class) are all displayed on full-screen version*/
+.homemenu div{
+  display: flex;
+  flex-direction: row;
+}
+
+/*Do not need drop down "Navigation" heading, as .homemenu links are all displayed in full screen version*/
+.homemenu h1{
+  display: none;
+}
+
+/*Style dropdown menu header for "history" links*/
+.dropmenu>h1::after {
+  content: "\25BC";
+}
+
+/*Style dropdown menu elements, set initial display to none*/
+.dropmenu a{
+  display: none;
+  background-color: #510c76;
+  border-radius: 0px;
+  list-style-type: none;
+}
+
+/*Display entire dropmenu when any of the elements (including dropmenu heading) are hovered over*/
+.dropmenu:hover a{
+  display: flex;
+  padding-inline: 2.1vw; /*attempting to offset the 2px border to maintain alignment with heading above*/
+}
+
+/*Prevent entire header from growing in size; only dropdown menu should drop down*/
+.dropmenu>div{
+  position: absolute;
+  z-index: 1;
+}
+
+/*Outline on div block (exterior of drop down menu*/
+.dropmenu:hover>div{
+  border-left: 2pt solid white;
+  border-right: 2pt solid white;
+  border-bottom: 2pt solid white;
+}
+
+/*Styling "Home" page*/
+.home{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: white;
+}
+
+/*Create background for "Home" page using .background class of main block*/
+.background{
+  background-size: cover;
+  background-image: url('Pictures/Campus.jpg'); /*https://www.appily.com/sites/default/files/styles/college_hero_desktop/public/images/hero/college/178615_hero.jpg?itok=CcmEG7ix*/
+}
+
+/*Style content of home page text*/
+.home>div{
+  min-width: 600px;
+  max-width: 1000px;
+  margin: 40px;
+  background-color: rgb(81, 12, 118, 70%); /*Opacity in background*/
+  border: solid 2pt white;
+  border-radius: 5px;
+}
+
+.home>div h1{
+  text-align: center;
+  padding: 5px;
+}
+
+.home>div p{
+  padding: 20px;
+  padding-top: 10px;
+  text-align: justify;
+}
+
+/*Create animated paragraph block that grows and shrinks in size*/
+.home>p{
+  padding: 5px;
+  background-color: #510c76;
+  border: solid 2pt white;
+  font-size: 18pt;
+  font-weight: bold;
+  white-space: nowrap;
+  animation-name: grow;
+  animation-duration: 5s;
+  animation-iteration-count: infinite;
+} 
+
+/*Grow and shrink p block on loop*/
+  @keyframes grow {
+  0% {font-size: 18pt;}
+  50% {font-size: 24pt;}
+  100% {font-size: 18pt;}
+  }
+  
+/*Styling content for the "Information" page*/
+.info{
+  display:grid;
+  grid-template-rows: 1fr auto;
+  justify-items: center;
+  margin-top: 30px;
+  background-image: url('Pictures/Logo.png'); /*https://upload.wikimedia.org/wikipedia/en/f/f6/Truman_State_University_logo.svg*/
+  background-repeat: no-repeat;
+  background-position: top;
+}
+
+/*Styling look for div block containing tables*/
+.info>div:first-child{
+  grid-row: 1;
+  display: flex;
+  flex-direction: row;
+}
+
+/*Styling look for "resources" div block*/
+.info>div:nth-child(2){
+  grid-row: 2;
+}
+
+/*Style table, create transition to remove opacity when hovered over*/
+.info table, .info>div:nth-child(2){
+  margin: 10px;
+  background-color: lightgray;
+  border-radius: 3px;
+  box-shadow: 2px 2px 6px 2px;
+  opacity: 80%;
+  transition: opacity 1s ease-out;
+}
+
+/*Execute transition above*/
+.info table:hover, .info>div:nth-child(2):hover{
+  opacity: 100%;
+}
+
+.info table{
+  border-top: 2pt solid #510c76;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.info table caption{
+  padding: 5px;
+  background-color: grey;
+  border-top: 2pt solid #510c76;
+  border-radius: 3px;
+  box-shadow: 2px 2px 4px 2px;
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+.info thead{
+  background-color: #87714D;
+  white-space: nowrap;
+}
+
+/*Dynamic margins for table elements*/
+.info td, .info th, .info li, info caption{
+  padding-inline: 1vw;
+  padding-block: 1vh;
+}
+
+.info h1{
+  text-align: center;
+  font-size: 15pt;
+}
+
+.info ul{
+  display: flex;
+  flex-direction: row;
+}
+
+.info li{
+ list-style-type: none;
+ text-align: center;
+}
+
+.info h2{
+  font-size: 12pt;
+  white-space: nowrap;
+}
+
+/*Style content for "Kirksville" page*/
+.pics{
+  display: grid;
+  margin: 10px;
+  grid-template-rows: 1fr auto auto auto;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas: "h h" "a1 a2" "b1 b2" "c1 c2"; /*Grid area strategy*/
+  justify-self: center;
+  align-self: center;
+}
+
+.pics h1{
+  padding: 5px;
+  border-bottom: 4pt solid #510c76;
+  font-size: 40px;
+}
+
+.pics figure{
+  width: 1fr;
+  margin: 10px;
+  padding: 15px;
+  background-color: #510c76;
+  border: 2px solid #2e0644;
+  border-radius: 5px;
+}
+
+/*Shrink picture with surrounding div block as screen gets smaller*/
+.pics img{
+  object-fit: contain;
+  max-width: 100%;
+}
+
+.pics figcaption{
+  color: white;
+  border: 2pt solid white;
+  font-weight: bold;
+  text-align: center;
+  white-space: nowrap;
+}
+
+/*Div blocks on right should align left to meet at very center*/
+.pics div:nth-child(2n + 1){
+  justify-self: left;
+}
+
+/*Div blocks on left should align right to meet at very center*/
+.pics div:nth-child(2n){
+  justify-self: right;
+}
+
+/*Align heading to center*/
+.pics div:first-child{
+  justify-self: center;
+}
+
+/*Assign grid areas*/
+.h{
+  grid-area: h;
+}
+
+.a1{
+  grid-area: a1;
+}
+
+.a2{
+  grid-area: a2;
+}
+
+.b1{
+  grid-area: b1;
+}
+
+.b2{
+  grid-area: b2;
+}
+
+.c1{
+  grid-area: c1;
+}
+
+.c2{
+  grid-area: c2;
+}
+
+/*Format footer to allow for transition to come from off screen*/
+.hide{
+  position: relative;
+  overflow: hidden;
+  height: 60px;
+  color: white;
+}
+
+/*Place train class off screen to the right, prepare transition*/
+.train{
+  display: flex;
+  flex-direction: row;
+  height: 60px;
+  position: absolute;
+  left: 100%;
+  transition: left 20s ease-out;
+}
+
+/*Position header to be used for transition*/
+.train h1{
+  font-size: 10pt;
+  white-space: nowrap;
+  align-self: center;
+}
+
+/*Move train div block to the very left side of screen*/
+.hide:hover .train{
+  left: 0;
+}
+
+/*Style content for "Academics" page*/
+.school{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.school>div{
+  margin: 15px;
+  margin-top: 20px;
+  text-align: justify; 
+}
+
+/*Style text and picture on left div block*/
+.school div:first-child{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 900px;
+  min-width: 300px;
+  font-size: 12pt;
+}
+
+/*Shrink image with sorrounding figure and div block*/
+.school img{
+  max-width: 100%;
+  object-fit: contain;
+}
+
+.school figure{
+  margin: 5px;
+  padding: 10px;
+  border: 2px solid;
+}
+
+/*Create same-style look for figure and form*/
+.school figure, .school fieldset{
+  background-color: #c1b8c5;
+  border-color: #510c76;
+  border-radius: 5px;
+}
+
+.school figcaption{
+  padding: 5px;
+  background-color: white;
+  border-radius: 3px;
+  font-weight: bold;
+  white-space: nowrap;
+  text-align: center;
+}
+
+.school h1{
+  font-size: 15pt;
+}
+
+/*Begin styling form*/
+.school form, .school h1{
+  margin-top: 10px;
+}
+
+.school fieldset{
+  min-width: 350px;
+  padding: 25px;
+  padding-top: 10px;
+}
+
+/*Style legend, prepare animation*/
+.school legend{
+  padding: 5px;
+  background-color: white;
+  border: 2px solid #510c76;
+  font-size: 12pt;
+  font-weight: bold;
+  animation-name: twist;
+  animation-duration: 10s;
+  animation-iteration-count: infinite;
+}
+
+/*Rotate back and forth, add corresponding shadow*/
+@keyframes twist{
+5%{rotate: 5deg;
+    box-shadow: 1px 1px 3px 1px;}
+10%{rotate: -5deg;    
+    box-shadow: -1px 1px 3px 1px;}
+20%{rotate: 0deg; /*Pause from 2s to 10s*/
+  box-shadow: none;}
+}
+
+/*Entire form except legend*/
+.school fieldset>div{
+  display: flex;
+  flex-direction: column;
+}
+
+.school label{
+  margin-block: 10px;
+  font-weight: bold;
+}
+
+/*Style all input elements (After labels)*/
+.school label+*{
+  padding: 5px;
+  width: 200px;
+  color: #510c76;
+  border-color: transparent;
+  border-radius: 3px;
+}
+
+/*Style select box options*/
+.school select>*{
+  font-size: 11pt;
+}
+
+/*Style radio button div block*/
+.school #buttons{
+  width: fit-content;
+  margin-top: 0px;
+  padding-top: 0px;
+  font-size: 9pt;
+}
+
+/*Style submit/reset button div block*/
+.school fieldset div div:last-child{
+  text-align: center;
+  font-size: 10pt;
+}
+
+/*Space individual radio buttons*/
+.school input[type="radio"]{
+  margin-top: 5px;
+}
+
+/*Stretch range input type*/
+.school input[type="range"]{
+  width: 90%
+}
+
+/*Style individual buttons*/
+.school input[type="submit"], .school input[type="reset"]{
+  width: 70px;
+  height: 30px;
+  border: 1px solid #510c76;
+}
+
+/*Used to center all of the elements on both axes in the "Athletics" page, and display background*/
+.centerbox{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: url('Pictures/Football.jpg'); /*https://www.rccllc.com/wp-content/uploads/truman1-2000x1216.jpg*/
+}
+
+/*Global page opacity*/
+.athletics *{
+  opacity: 95%;
+}
+
+/*Style div blocks, each one contains a table*/
+.athletics{
+  display: grid;
+  grid-template-columns: 1fr, auto, 1fr;
+  align-items: center;
+  padding: 20px;
+}
+
+/*Placing items in correct grid square*/
+.athletics table:first-child{
+  grid-column: 1;
+  grid-row: 1;
+  justify-self: center;
+  margin: 5px;
+}
+
+.athletics table:nth-child(2){
+  grid-column: 3;
+  grid-row: 1;
+  justify-self: center;
+  margin: 5px;
+}
+
+.athletics figure{
+  grid-column: 2;
+  grid-row: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  justify-self: center;
+}
+
+/*Format tables*/
+.athletics table{
+  min-width: 240px;
+  margin: 10px;
+  color: white;
+  border-top: 2pt solid #00A8E2;
+  border-radius: 5px;
+  border-collapse: collapse;
+  background-color: #510c76;
+  white-space: nowrap;
+  text-align: left;
+}
+
+/*Pad all table elements*/
+.athletics table *{
+  padding: 5px;
+}
+
+/*Style table sections*/
+.athletics table caption{
+  background-color: #00A8E2;
+  border-radius: 5px;
+  font-weight: bold;
+  white-space: nowrap;
+  text-transform: uppercase;
+}
+
+.athletics thead, .athletics tfoot{
+  background-color: white;
+  color: #510c76;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.athletics tfoot{
+  text-align: center;
+  font-weight: bold;
+}
+
+/*Shrink object with surrounding div block as page gets smaller*/
+.athletics img{
+  object-fit: contain;
+  max-width: 100%;
+}
+
+/*Style figure caption, prepare animation*/
+.athletics figcaption{
+  color: white;
+  background-color: #510c76;
+  border: 2pt solid white;
+  padding: 7px;
+  font-size: 1.75vw; /*Dynamic font size*/
+  font-weight: bold;
+  font-family: 'Hurme Geometric Sans 1 Bold', sans-serif; /*Truman font*/
+  text-align: center;
+  white-space: nowrap;
+  animation-name: dazzle;
+  animation-duration: 5s;
+  animation-iteration-count: infinite;
+}
+
+/*Fade betweeen figcaption background colors on loop*/
+@keyframes dazzle {
+0%{background-color: #510c76;} 
+33% {background-color: #87714D;}
+67% {background-color: #00A8E2;}
+100% {background-color: #510c76;}
+}
+
+/*Style "Trivia" page*/
+.trivia{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+}
+
+/*Begin styling form*/
+.trivia form{
+  width: 650px;
+  margin: 15px;
+}
+
+.trivia fieldset{
+  background-image: linear-gradient(#510c76, #220730);
+  border-radius: 5px;
+}
+
+.trivia legend{
+  background-color: white;
+  border: 2px solid #510c76;
+  font-size: 18pt;
+  font-weight: bold;
+  text-align: center;
+  padding: 6px;
+}
+
+/*Style all form elements except legend*/
+.trivia fieldset div>*{
+  border-radius: 3px;
+  border: transparent;
+}
+
+/*Align fieldset elements to center*/
+.trivia fieldset>div{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.trivia label{
+  margin-block: 20px;
+  color: white;
+  font-weight: bold;
+}
+
+/*Style all input elements*/
+.trivia label+*{
+  width: 200px;
+  padding: 8px;
+  font-weight: bold;
+  color: #510c76;
+}
+
+/*Style select box options*/
+.trivia select>*{
+  font-size: 11pt;
+}
+
+/*Style submit/reset, checkbox, and radio button blocks*/
+.trivia fieldset>div>div:last-child{
+  margin-top: 20px;
+}
+
+/*Squeezing in boxes with multiple options*/
+.trivia #buttons, .trivia #checks{
+  width: fit-content;
+  padding: 0px;
+}
+
+/*Style individual radio buttons and checkboxes*/
+.trivia input[type="radio"], .trivia input[type="checkbox"]{
+  margin: 5px;
+}
+
+/*Style submit/reset buttons*/
+.trivia input[type="submit"], .trivia input[type="reset"]{
+  width: 90px;
+  height: 40px;
+  font-size: 12pt;
+}
+
+/*Template for the 4 history pages*/
+.history{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 10px;
+}
+
+/*Div block for the text*/
+.history>div{
+  max-width: 1200px;
+  text-align: center;
+}
+
+/*Div block for the figures*/
+.history>div:nth-child(2n){
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.history figure{
+  padding: 0px;
+  margin: 10px;
+}
+
+.history>div>p{
+  margin: 12px;
+  text-align: justify;
+}
+
+/*Shrink image wth surrounding div block as page size decrease*/
+.history img{
+  object-fit: contain;
+  max-width: 100%;
+}
+
+.history figcaption{
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+/*Prepare transition for bottom p block*/
+.history div div p{
+  color: transparent;
+  transition: color 2s ease-in-out;
+}
+
+/*Transition in from transparent when block is hovered over*/
+.history div div:hover p{
+  color: #510c76;
+}
+
+

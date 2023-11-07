@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Truman Academics</title>
+    <link rel="stylesheet" href="stylesheet_med.css" media="screen and (max-width:768px)"/>
+    <link rel="stylesheet" href="stylesheet.css" media="screen and (min-width:769px)"/>
+    <script src="scripts.js"></script>
+  </head>
+  <body>
+    <header>
+      <nav>
+        <a href="home.html">Home</a></li>
+        <div class="homemenu">
+          <h1>Navigation</h1>
+          <div>
+            <a href="information.html">Information</a>
+            <a href="kirksville.html">Kirksville</a>
+            <a class="active" href="academics.html">Academics</a>
+            <a href="athletics.html">Athletics</a>
+            <a href="trivia.html">Trivia</a>
+          </div>
+        </div>
+        <div class="dropmenu">
+          <h1>History</h1>
+          <div>
+            <a href="normal.html">A Normal Start</a>
+            <a href="teachers.html">Teacher Training</a>
+            <a href="nemo.html">Regional Roots</a>
+            <a href="today.html">Truman Today</a>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <main>
+      <p id="schoolJSON"></p>
+      <div class="school">
+        <div>
+          <h1>Academic Excellence</h1>
+          <p>
+            Since 1986, Truman State has been the premier public academic institution in the state of Missouri, and has lived up to the reputation. They consistently rank amongst the best in the state in both their accounting, 
+            and nursing programs; although these two may be their strongest on paper, the other 53 programs that they offer are all incredibly competitive as well, thanks to the dedicated and passionate faculty. Truman State 
+            separates their majors into 5 schools; Arts and Letters, Business, Health Sciences and Education, Science and Mathematics, and Social and Cultural Studies. Since Truman is a school of liberal arts and sciences, you
+            will be involved in programs consisting of individuals from each and every major during your time as a student. And if none of those major clusters jump out at you, you can always design your own with an 
+            Interdisciplinary Studies approach, where you can work with faculty members to create your own degree. Even though it is a small school, you'll be able to find your place academically, no matter where your interests lie. 
+          </p>
+          <figure>
+            <img src="Pictures/Admis.jpg">
+            <figcaption>Office of Admissions at Truman State</figcaption>
+          </figure>
+        </div>
+        <div>
+          <form method="post" id="schoolForm">
+            <fieldset>
+              <legend>Interested in Truman?</legend>
+              <div>
+                <label for="name">Name</label>
+                <input type="text" placeholder="Joseph Baldwin" name="name" id="name">
+                <p class="valid">Must enter name</p>
+                <label for="state">State</label>
+                <select name ="state" id="state">
+                  <option>Arkansas</option>
+                  <option>Illinois</option>
+                  <option>Iowa</option>
+                  <option>Kansas</option>
+                  <option selected>Missouri</option>
+                </select>
+                <label for="city">City</label>
+                <input type="text" placeholder="Kirksville" name="city" id="city">
+                <p class="valid">Must enter city</p>
+                <label for="buttons">Anticipated School</label>
+                <div id="buttons">
+                  <input type="radio" name="school" id="art" value = "1">
+                  <label for="art">School of Arts and Letters</label><br/>
+                  <input type="radio" name="school" id="business" value = "2">
+                  <label for="business">School of Business</label><br/>
+                  <input type="radio" name="school" id="health" value = "3">
+                  <label for="health">School of Health Sciences and Education</label><br/>
+                  <input type="radio" name="school" id="science" value = "4">
+                  <label for="science">School of Science and Mathematics</label><br/>
+                  <input type="radio" name="school" id="social" value = "5">
+                  <label for="social">School of Social and Cultural Studies</label>
+                </div>
+                <p class="valid">Must select school</p>
+                <label for="major">Anticipated Major</label>
+                <input type="text" placeholder="Computer Science" name="major" id="major">
+                <p class="valid">Must enter major</p>
+                <label for="rate">How excited are you to come to Truman?</label> 
+                <input type="range" min="0" max="100" step="1" name="rate" id="rate">
+                <div>
+                  <input type="submit"/>
+                  <input type="reset"/>
+                </div>
+              </div>
+            </fieldset>
+          </form>
+        </div>
+      </div>
+    </main>
+    <footer></footer>
+  </body>
+</html>

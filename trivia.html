@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Truman Trivia</title>
+    <link rel="stylesheet" href="stylesheet_med.css" media="screen and (max-width:768px)"/>
+    <link rel="stylesheet" href="stylesheet.css" media="screen and (min-width:769px)"/>
+    <script src="scripts.js"></script>
+  </head>
+  <body>
+    <header>
+      <nav>
+        <a href="home.html">Home</a></li>
+        <div class="homemenu">
+          <h1>Navigation</h1>
+          <div>
+            <a href="information.html">Information</a>
+            <a href="kirksville.html">Kirksville</a>
+            <a href="academics.html">Academics</a>
+            <a href="athletics.html">Athletics</a>
+            <a class="active" href="trivia.html">Trivia</a>
+          </div>
+        </div>
+        <div class="dropmenu">
+          <h1>History</h1>
+          <div>
+            <a href="normal.html">A Normal Start</a>
+            <a href="teachers.html">Teacher Training</a>
+            <a href="nemo.html">Regional Roots</a>
+            <a href="today.html">Truman Today</a>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <main>
+      <p id="triviaJSON"></p>
+      <div class="trivia">
+        <h1>Let's see how well you've been paying attention!</h1>
+        <form method="post" id="triviaForm">
+          <fieldset>
+            <legend>Trivia Time!</legend>
+            <div>
+              <label for="basketball">Where do the Truman Basketball teams play?</label>
+              <select name ="basketball" id="basketball">
+                <option disabled selected value>Select an option</option>
+                <option>Stokes Arena</option>
+                <option>Kirk Arena</option>
+                <option>Pershing Arena</option>
+                <option>Baldwin Arena</option>
+                <option>Truman Arena</option>
+              </select>
+              <p class="valid">Must select arena</p>
+              <label for="names">How many different names has Truman State officially had?</label>
+              <input type="number" placeholder="0" min="1" max = "10" name="names" id="names">
+              <p class="valid">Number must be greater than 0</p>
+              <label for="conference">Can you type the correct acronym for Truman's athletic conference?</label>
+              <input type="text" placeholder="Answer" name="conference" id="conference">
+              <p class="valid">Must enter conference</p>
+              <label for="month">In what month would you be able to attend a Truman Week event?</label>
+              <input type="month" name="month" id="month">
+              <p class="valid">Must select month</p>
+              <label for="buttons">Which of these is not present at Truman State?</label>
+              <div id="buttons">
+                <input type="radio" name="extra" id="art" value = "1">
+                <label for="art">School of Arts and Letters</label><br/>
+                <input type="radio" name="extra" id="language" value = "2">
+                <label for="business">School of Language and Education</label><br/>
+                <input type="radio" name="extra" id="health" value = "3">
+                <label for="health">School of Health Sciences and Education</label><br/>
+                <input type="radio" name="extra" id="science" value = "4">
+                <label for="science">School of Science and Mathematics</label><br/>
+                <input type="radio" name="extra" id="social" value = "5">
+                <label for="social">School of Social and Cultural Studies</label>
+              </div>
+              <p class="valid">Must select school</p>
+              <label for="checks">What cardinal direction is Kirksville in Missouri?</label>
+              <div id="checks">
+                <input type="checkbox" name="locate" id="N1" value="0">
+                <label for="N1">North</label><br/>
+                <input type="checkbox" name="locate" id="N2" value="0">
+                <label for="N2">North</label><br/>
+                <input type="checkbox" name="locate" id="N3" value="0">
+                <label for="N3">North</label><br/>
+                <input type="checkbox" name="locate" id="S" value="1">
+                <label for="S">South</label>
+              </div>
+              <p class="valid">Must select at least one direction</p>
+              <label for="spike">What is the name of Truman's beloved mascot?</label>
+              <input type="text" placeholder="Answer" name="spike" id="spike">
+              <p class="valid">Must enter mascot name</p>
+              <div>
+                <input type="submit"/>
+                <input type="reset"/>
+              </div>
+            </div>
+          </fieldset>
+        </form>
+      </div>
+    </main>
+    <footer></footer>
+  </body>
+</html>
