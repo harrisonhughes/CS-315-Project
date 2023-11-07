@@ -62,7 +62,6 @@ a:hover{
 
 /*Class design for a form warning message (p block): appears when invalid form entry is commmitted*/
 .invalid{
-  display: inline;
   margin: 2px;
   font-size: 9pt;
   color: red;
@@ -81,6 +80,7 @@ input[type="submit"], input[type="reset"]{
   margin: 8px;
   color: #510c76;  
 }
+/*End Global Styles*/
 
 /*Styling nav bar*/
 header nav{
@@ -91,7 +91,7 @@ header nav{
 
 /*Styling nav elements*/
 nav a, nav h1{
-  display: flex;
+  display: flex; /*To position text in very center of nav blocks*/
   align-items: center;
   height: 60px;
   font-size: 10pt;
@@ -288,6 +288,7 @@ nav>div:hover>div{
   font-size: 20pt;
 }
 
+/*Universal page styling for figures*/
 .pics figure{
   width: 1fr;
   margin: 10px;
@@ -702,15 +703,16 @@ nav>div:hover>div{
   margin: 10px;
 }
 
+.history figure{
+  margin: 5px;
+  padding: 0px;
+}
+
+/*Style main paragraph of page*/
 .history>div>p{
   margin: 12px;
   font-size: 11pt;
   text-align: justify;
-}
-
-.history figure{
-  margin: 5px;
-  padding: 0px;
 }
 
 /*Shrink image wth surrounding div block as page size decrease*/
