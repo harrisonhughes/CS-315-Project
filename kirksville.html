@@ -80,6 +80,12 @@
         <h1>Also, an Amtrak station is only 15 minutes away!</h1>
         <img src="Pictures/Train.png"> <!--https://pngimg.com/uploads/trian/trian_PNG16618.png-->
       </div>
+      <a href="products.html">Merchandise</a>
+      <?php
+        if(isset($_COOKIE['currentOrder'])) {
+          echo "<a href='checkout.html'>Checkout</a>";
+        }
+      ?>
     </footer>
   </body>
 </html>

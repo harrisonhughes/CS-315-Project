@@ -31,10 +31,25 @@ main {
 }
 
 footer{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
   background-color: #510c76;
   flex-shrink: 0; /* To keep footer constant size*/
-  height: 50px;
+  height: 60px;
   border-top: 2px solid white;
+}
+
+/* Styling footer for merch link*/
+footer a{
+  display: flex; /*To position text in very center of nav blocks*/
+  align-items: center;
+  height: 60px;
+  padding-inline: 30px;
+  font-size: 11pt;
+  color: white;
+  font-family: 'Hurme Geometric Sans 1 Bold', sans-serif;
+  font-weight: bold;
 }
 
 /*No underline for any link globally*/
@@ -52,32 +67,6 @@ a:hover{
   background-image: linear-gradient(90deg, #9a8667, #87714D);
   height: 56px;
   border: 2px solid #00A8E2;
-}
-
-/*Styling JSON display block for output at top of page (p block)*/
-#schoolJSON, #triviaJSON{
-  text-align: center;
-}
-
-/*Class design for a form warning message (p block): appears when invalid form entry is commmitted*/
-.invalid{
-  margin: 2px;
-  font-size: 10pt;
-  color: red;
-}
-
-/*Default design for warning message p block: no need to display until form entry error is committed*/
-.valid{
-  display: none;
-}
-
-/*Global style for all submit/reset buttons*/
-input[type="submit"], input[type="reset"]{
-  font-weight: bold;
-  border-radius: 3px;
-  background-color: white;
-  margin: 8px;
-  color: #510c76;  
 }
 /*End Global Styles*/
 
@@ -382,6 +371,7 @@ nav a, .dropmenu h1{
   height: 60px;
   position: absolute;
   left: 100%;
+  background-color: #510c76;
   transition: left 20s ease-out;
 }
 
@@ -452,6 +442,16 @@ nav a, .dropmenu h1{
   font-size: 15pt;
 }
 
+/*Styling feedback message upon form completion*/
+.school h2{
+  margin: 0px;
+  padding: 0px;
+  font-size: 12pt;
+  color: green;
+  font-weight: normal;
+  text-align: center;
+}
+
 /*Begin styling form*/
 .school form, .school h1{
   margin-top: 10px;
@@ -461,6 +461,14 @@ nav a, .dropmenu h1{
   min-width: 350px;
   padding: 25px;
   padding-top: 10px;
+}
+
+/* Styling error messages for form*/
+.school form p{
+  margin: 0px;
+  padding: 0px;
+  color: red;
+  font-size: 9pt;
 }
 
 /*Style legend, prepare animation*/
@@ -538,7 +546,12 @@ nav a, .dropmenu h1{
 .school input[type="submit"], .school input[type="reset"]{
   width: 70px;
   height: 30px;
+  margin: 8px;
+  font-weight: bold;
+  color: #510c76; 
+  border-radius: 3px;
   border: 1px solid #510c76;
+  background-color: white; 
 }
 
 /*Used to center all of the elements on both axes in the "Athletics" page, and display background*/
@@ -657,7 +670,15 @@ nav a, .dropmenu h1{
   display: flex;
   flex-direction: column;
   align-items: center;
+}
 
+/*Style feedback message after form entry*/
+.trivia h2{
+  margin: 0px;
+  padding: 0px;
+  font-size: 12pt;
+  color: green;
+  font-weight: normal;
 }
 
 /*Begin styling form*/
@@ -691,6 +712,14 @@ nav a, .dropmenu h1{
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+/* Styling error messages for form*/
+.trivia form p{
+  margin: 0px;
+  padding: 0px;
+  color: red;
+  font-size: 10pt;
 }
 
 .trivia label{
@@ -732,7 +761,13 @@ nav a, .dropmenu h1{
 .trivia input[type="submit"], .trivia input[type="reset"]{
   width: 90px;
   height: 40px;
+  margin: 8px;
   font-size: 12pt;
+  font-weight: bold;
+  color: #510c76;  
+  border: 1px solid #510c76;
+  border-radius: 3px;
+  background-color: white;
 }
 
 /*Template for the 4 history pages*/
@@ -790,4 +825,585 @@ nav a, .dropmenu h1{
   color: #510c76;
 }
 
+aside{
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  min-height: 400px;
+  width: 160px;
+  top: 60px;
+  bottom: 60px;
+}
 
+aside>*{
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 150px;
+  margin: 0px;
+  font-weight: bold;
+  font-size: 11pt;
+  text-align: center;
+  color: black;
+  border-bottom: 1px solid black;
+}
+
+aside>*:last-child{
+  border-bottom: none;
+}
+
+.shopping>div{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  margin-left: 180px;
+}
+
+.shopping h1{
+  margin-bottom: 10px;
+}
+
+.shopping h2{
+  margin: 0px;
+  padding: 0px;
+  font-size: 12pt;
+  color: green;
+  font-weight: normal;
+}
+
+.shopping>div>div{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding: 20px;
+}
+
+.shopping figure{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 230px;
+  margin: 5px;
+}
+
+.shopping .recentlyOrdered{
+  color: #00A8E2
+}
+
+.shopping div a{
+  color:#510c76;
+}
+
+.shopping div a:hover{
+  color:#00A8E2;
+}
+
+.shopping img{
+  height: 200px;
+}
+
+.shopping figcaption{
+  margin-top: 4px;
+  white-space: nowrap;
+  text-align: center;
+  font-weight: bold;
+  font-size: 11pt;
+}
+
+.shopping figure figcaption:last-child{
+  font-weight: normal; 
+  margin: 0px;
+}
+
+.login>div{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px;
+  margin-left: 180px;
+}
+
+.login h1{
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.login h2{
+  margin: 0px;
+  padding: 0px;
+  color: red;
+  font-size: 12pt;
+  font-weight: normal;
+}
+
+.login form p{
+  margin: 0px;
+  color: red;
+  font-size: 10pt;
+  text-align: center;
+}
+
+.login form{
+  margin-top: 4px;
+  padding: 5px;
+}
+
+.login fieldset{
+  border: none;
+  border-radius: 3px;
+}
+
+.login label{
+  display: inline-block;
+  min-width: 125px;
+  font-weight: bold;
+}
+
+.login input{
+  margin-block: 6px;
+  padding: 4px;
+  width: 225px;
+  color: #510c76;
+  border: 1px solid #510c76;
+  border-radius: 3px;
+}
+
+.buttons{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.buttons>*{
+  height: 30px;
+  border: 2px solid #510c76;
+  border-radius: 3px;
+  color:#510c76;
+  font-size: 12pt;
+  font-weight: bold;
+  background-color: white;
+}
+
+.buttons>*:hover{
+  border-color: #00A8E2;
+  color: #00A8E2;
+}
+
+.item>div{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 20px;
+  margin-left: 180px;
+}
+
+.item div div{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.item #numErr{
+  margin-top: 0px;
+  color: red;
+}
+
+.item img{
+  height: 450px;
+  margin-top: 20px;
+}
+
+.item h1, .item h2{
+  margin: 10px;
+}
+
+.item fieldset{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: none;
+}
+
+.item label{
+  font-weight: bold;
+  font-size: 14pt;
+}
+
+.item form div{
+  display: flex;
+  flex-direction: row;
+}
+
+.item input{
+  width: 350px;
+  font-size: 12pt;
+  font-weight: bold;
+  border: 2px solid #510c76;
+  border-radius: 4px;
+  color: #510c76;
+}
+
+.item div>input{
+  margin: 10px;
+  padding: 5px;
+}
+
+.item fieldset>input{
+  width: 240px;
+  padding: 8px;
+  background-color: #510c76;
+  color: white;
+  border: none;
+}
+
+.checkout>div{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px;
+  margin-left: 180px;
+}
+
+.checkout h1{
+  margin-bottom: 10px;
+}
+
+.checkout #checkMess{
+  margin: 0px;
+  padding: 0px;
+  font-size: 12pt;
+  color: green;
+  font-weight: normal;
+}
+
+.checkout #checkErr{
+  margin: 0px;
+  padding: 0px;
+  font-size: 12pt;
+  color: red;
+  font-weight: normal;
+}
+
+.checkout table{
+  margin-top: 10px;
+  border-bottom: 1px solid black;
+}
+
+.checkout tfoot tr:first-child td{
+  padding-top: 15px;
+}
+
+.checkout td, .checkout th{
+  padding-inline: 15px;
+  text-align: start;
+}
+
+.checkout tr td:first-child{
+  width: 200px;
+}
+
+.checkout tr td:last-child{
+  text-align: end;
+}
+
+.checkout fieldset{
+  border: none;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.checkout input{
+  padding: 5px;
+  padding-inline: 20px;
+  font-size: 16pt;
+  border: none;
+  font-weight: bold;
+  color: #510c76;
+  background-color: white;
+}
+
+.checkout input:hover{
+  color: #00A8E2;
+  border-color: #00A8E2;
+}
+
+.account>div{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px;
+  margin-left: 180px;
+}
+
+.account td, .account th{
+  margin: 5px;
+  padding-inline: 15px;
+  font-size: 14pt;
+  text-align: start;
+}
+
+.account div p{
+  font-size: 16pt;
+}
+
+.account fieldset{
+  border: none;
+}
+
+.account input{
+  padding: 4px;
+  background-color: white;
+  color: #510c76;
+  font-size: 18pt;
+  font-weight: bold;
+  border: 2px solid #510c76;
+  border-radius: 5px;
+}
+
+.account input:hover{
+  color: #00A8E2;
+  border-color: #00A8E2;
+}
+
+.orderHist>div{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px;
+  margin-left: 180px;
+}
+
+.orderHist>div>div{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 600px;
+  text-align: center;
+  border: 2px solid #510c76;
+  border-radius: 5px;
+}
+
+.orderHist table{
+  white-space: nowrap;
+}
+
+.orderHist em{
+  font-weight: normal;
+}
+
+.orderHist th, .orderHist td{
+  text-align: start;
+  padding-inline: 10px;
+}
+
+.orderHist tfoot tr:first-child td{
+  padding-top: 10px;
+}
+
+.orderHist table:last-of-type tr td:last-child{
+  text-align: end;
+}
+
+.orderHist form{
+  width: 100%;
+}
+
+.orderHist fieldset{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  border: none;
+}
+
+.orderHist input{
+  padding-top: 10px;
+  border: none;
+  font-size: 14pt;
+  font-weight: bold;
+  color: #510c76;
+  background-color: white;
+}
+
+.orderHist input:hover{
+  color: #00A8E2;
+}
+
+.placeOrder>div{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px;
+  margin-left: 180px;
+}
+
+.placeOrder h2{
+  margin: 0px;
+  padding: 0px;
+  color: red;
+  font-size: 12pt;
+  font-weight: normal;
+}
+
+.placeOrder fieldset{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: wrap;
+  border: none;
+}
+
+.productList, .accountInfo{
+  margin-inline: 10px;
+}
+
+.productList table{
+  height: fit-content;
+  margin-bottom: 20px;
+}
+
+.productList tr{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 3px;
+  margin: 5px;
+  outline: 1px solid grey;
+  border-radius: 10px;
+}
+
+.productList tr:hover{
+  outline-width: 2px;
+}
+
+.productList td{
+  padding-block: 8px;
+  padding-inline: 4px;
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+.productList td:first-child{
+  align-self: start;
+  justify-self: start;
+  margin: 0px;
+  padding: 0px;
+}
+
+.productList td:nth-child(2){
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 50px;
+  padding-left: 0px;
+}
+
+.productList td:nth-child(3){
+  width: 130px;
+}
+
+.productList td:nth-child(4){
+  width: 75px;
+  font-size: 13pt;
+}
+
+.productList td:nth-child(5){
+  padding-right: 8px;
+}
+
+.productList td input{
+  border: none;
+  background-color: white;
+}
+
+.productList td:first-child input{
+  font-size: 16pt;
+  color: black;
+}
+
+.productList td:nth-child(4) input{
+  font-size: 13pt;
+  color:#510c76;
+}
+
+.productList input[type="submit"]:hover{
+  font-weight: bold;
+}
+
+.productList td:first-child input:hover{
+  color: rgb(183, 28, 28);
+}
+
+.productList img{
+  height: 50px;
+  margin: 0px;
+}
+
+.accountInfo label{
+  display: inline-block;
+  min-width: 100px;
+  font-weight: bold;
+}
+
+.accountInfo input[type="text"]{
+  margin-block: 6px;
+  padding: 4px;
+  width: 225px;
+  color: #510c76;
+  border: 1px solid #510c76;
+  border-radius: 3px;
+}
+
+.accountInfo>div>p{
+  margin: 0px;
+  color: red;
+  font-size: 10pt;
+  text-align: center;
+}
+
+.accountInfo>div:last-child{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.orderInfo{
+  display: flex;
+  flex-direction: column;
+  margin-block: 15px;
+}
+
+.orderInfo>div{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  font-weight: bold;
+  padding-inline: 90px;
+}
+
+.orderInfo p{
+  margin: 0px;
+  margin-inline: 5px;
+}
+
+.accountInfo input[type="submit"]{
+  padding: 8px;
+  background-color: white;
+  color: #510c76;
+  font-weight: bold;
+  font-size: 11pt;
+  border-radius: 3px;
+  border: 2px solid #510c76;
+}
+
+.accountInfo input[type="submit"]:hover{
+  color: #00A8E2;
+  border-color: #00A8E2;
+}

@@ -33,6 +33,11 @@
     </header>
     </nav>
     <main class="background">
+      <p class="orderCookie"><?php 
+        if(isset($_COOKIE['currentOrder'])){
+          echo $_COOKIE['currentOrder'];
+        }
+      ?></p>
       <div class="home">
         <div>
           <h1>Truman State University</h1>
@@ -46,6 +51,13 @@
         <p>Welcome to Truman State</p>
       </div>
     </main>
-    <footer></footer>
+    <footer>
+      <a href="products.html">Merchandise</a>
+      <?php
+        if(isset($_COOKIE['currentOrder'])) {
+          echo "<a href='checkout.html'>Checkout</a>";
+        }
+      ?>
+    </footer>
   </body>
 </html>

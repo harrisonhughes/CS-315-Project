@@ -5,7 +5,7 @@
     <title>Truman Academics</title>
     <link rel="stylesheet" href="stylesheet_med.css" media="screen and (max-width:768px)"/>
     <link rel="stylesheet" href="stylesheet.css" media="screen and (min-width:769px)"/>
-    <script src="scripts.js"></script>
+    <script src="functions.js"></script>
   </head>
   <body>
     <header>
@@ -33,7 +33,6 @@
       </nav>
     </header>
     <main>
-      <p id="schoolJSON"></p>
       <div class="school">
         <div>
           <h1>Academic Excellence</h1>
@@ -50,13 +49,24 @@
           </figure>
         </div>
         <div>
-          <form method="post" id="schoolForm">
+          <h2><?php session_start();
+            if(isset($_SESSION['applyMess'])){
+              echo $_SESSION['applyMess'];
+              unset($_SESSION['applyMess']);}
+            ?></h2>
+          <form onsubmit="return validateApplication()" action="academics.php" method="post" id="schoolForm">
             <fieldset>
               <legend>Interested in Truman?</legend>
               <div>
                 <label for="name">Name</label>
                 <input type="text" placeholder="Joseph Baldwin" name="name" id="name">
-                <p class="valid">Must enter name</p>
+                <p id="nameErr">
+                  <?php
+                  if(isset($_SESSION['nameErr'])){
+                    echo $_SESSION['nameErr'];
+                    unset($_SESSION['nameErr']);}
+                  ?>
+                </p>
                 <label for="state">State</label>
                 <select name ="state" id="state">
                   <option>Arkansas</option>
@@ -65,26 +75,51 @@
                   <option>Kansas</option>
                   <option selected>Missouri</option>
                 </select>
+                <p id="homeErr">
+                  <?php
+                  if(isset($_SESSION['homeErr'])){
+                    echo $_SESSION['homeErr'];
+                    unset($_SESSION['homeErr']);}
+                  ?>
+                </p>
                 <label for="city">City</label>
                 <input type="text" placeholder="Kirksville" name="city" id="city">
-                <p class="valid">Must enter city</p>
+                <p id="liveErr">
+                  <?php
+                  if(isset($_SESSION['liveErr'])){
+                    echo $_SESSION['liveErr'];
+                    unset($_SESSION['liveErr']);}
+                  ?>
+                </p>
                 <label for="buttons">Anticipated School</label>
                 <div id="buttons">
-                  <input type="radio" name="school" id="art" value = "1">
+                  <input type="radio" name="school" id="art" value = "School of Arts and Letters">
                   <label for="art">School of Arts and Letters</label><br/>
-                  <input type="radio" name="school" id="business" value = "2">
+                  <input type="radio" name="school" id="business" value = "School of Business">
                   <label for="business">School of Business</label><br/>
-                  <input type="radio" name="school" id="health" value = "3">
+                  <input type="radio" name="school" id="health" value = "School of Health Sciences and Education">
                   <label for="health">School of Health Sciences and Education</label><br/>
-                  <input type="radio" name="school" id="science" value = "4">
+                  <input type="radio" name="school" id="science" value = "School of Science and Mathematics">
                   <label for="science">School of Science and Mathematics</label><br/>
-                  <input type="radio" name="school" id="social" value = "5">
+                  <input type="radio" name="school" id="social" value = "School of Social and Cultural Studies">
                   <label for="social">School of Social and Cultural Studies</label>
                 </div>
-                <p class="valid">Must select school</p>
+                <p id="schoolErr">
+                  <?php
+                  if(isset($_SESSION['schoolErr'])){
+                    echo $_SESSION['schoolErr'];
+                    unset($_SESSION['schoolErr']);}
+                  ?>
+                </p>
                 <label for="major">Anticipated Major</label>
                 <input type="text" placeholder="Computer Science" name="major" id="major">
-                <p class="valid">Must enter major</p>
+                <p id="majorErr">
+                  <?php
+                  if(isset($_SESSION['majorErr'])){
+                    echo $_SESSION['majorErr'];
+                    unset($_SESSION['majorErr']);}
+                  ?>
+                </p>
                 <label for="rate">How excited are you to come to Truman?</label> 
                 <input type="range" min="0" max="100" step="1" name="rate" id="rate">
                 <div>
@@ -97,6 +132,13 @@
         </div>
       </div>
     </main>
-    <footer></footer>
+    <footer>
+      <a href="products.html">Merchandise</a>
+      <?php
+        if(isset($_COOKIE['currentOrder'])) {
+          echo "<a href='checkout.html'>Checkout</a>";
+        }
+      ?>
+    </footer>
   </body>
 </html>

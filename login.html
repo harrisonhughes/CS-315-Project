@@ -1,0 +1,188 @@
+<?php
+  session_start();
+  if(isset($_SESSION['user'])){
+    if(isset($_COOKIE['currentOrder'])){
+      $_SESSION['checkErr'] = "You still have items in your shopping cart!";
+      header("Location: checkout.html");
+      exit();
+    }
+
+    session_unset();
+    session_destroy();
+  }
+?>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Truman Merchandise</title>
+    <link rel="stylesheet" href="stylesheet_med.css" media="screen and (max-width:768px)"/>
+    <link rel="stylesheet" href="stylesheet.css" media="screen and (min-width:769px)"/>
+    <script src="functions.js"></script>
+  </head>
+  <body>
+    <header>
+      <nav>
+        <a href="home.html">Home</a></li>
+        <div class="homemenu">
+          <h1>Navigation</h1>
+          <div>
+            <a href="information.html">Information</a>
+            <a href="kirksville.html">Kirksville</a>
+            <a href="academics.html">Academics</a>
+            <a href="athletics.html">Athletics</a>
+            <a href="trivia.html">Trivia</a>
+          </div>
+        </div>
+        <div class="dropmenu">
+          <h1>History</h1>
+          <div>
+            <a href="normal.html">A Normal Start</a>
+            <a href="teachers.html">Teacher Training</a>
+            <a href="nemo.html">Regional Roots</a>
+            <a href="today.html">Truman Today</a>
+          </div>
+        </div>
+      </nav>
+    </header>
+    </nav>
+    <main class="login">
+      <aside>
+        <p>Welcome,<br>Customer</p> 
+        <a href="login.html">Sign In</a>
+        <a href="products.html">Products</a>
+        <a href="account.html">Account</a>
+        <a href="checkout.html">Checkout</a>
+      </aside>
+      <div>
+        <h1>Sign In or Create an Account</h1>
+        <h2><?php
+          if(isset($_SESSION['logMess'])){
+            echo $_SESSION['logMess'];
+            unset($_SESSION['logMess']);}
+          ?></h2>
+        <div>
+          <form onsubmit="return validateLogin()" action="login.php" method="post">
+            <fieldset>
+              <div>
+                <label for="username">Username</label>
+                <input type="text" name="username" id="username" value="<?php
+                  if(isset($_COOKIE['prevUser']))
+                    echo $_COOKIE['prevUser'];
+                  ?>">
+                <p id="userErr">
+                  <?php
+                  if(isset($_SESSION['userErr'])){
+                    echo $_SESSION['userErr'];
+                    unset($_SESSION['userErr']);}
+                  ?>
+                </p>
+              </div>
+              <div>
+                <label for="password">Password</label>
+                <input type="password" name="password" id="password">
+                <p id="pwordErr">
+                  <?php
+                  if(isset($_SESSION['pwordErr'])){
+                    echo $_SESSION['pwordErr'];
+                    unset($_SESSION['pwordErr']);}
+                  ?>
+                </p>
+              </div>
+              <div class="buttons">
+                <input type="submit" value="Login" name="login" id="login"/>
+              </div>
+            </fieldset>
+          </form>
+          <form onsubmit="return validateCreate()" action="login.php" method="post">
+            <fieldset>
+              <div>
+                <label for="fullName">Full Name</label>
+                <input type="text" name="fullName" id="fullName">
+                <p id="fnameErr">
+                  <?php
+                  if(isset($_SESSION['fnameErr'])){
+                    echo $_SESSION['fnameErr'];
+                    unset($_SESSION['fnameErr']);}
+                  ?>
+                </p>
+              </div>
+              <div>
+                <label for="newUsername">New Username</label>
+                <input type="text" name="newUsername" id="newUsername">
+                <p id="unameErr">
+                  <?php
+                  if(isset($_SESSION['unameErr'])){
+                    echo $_SESSION['unameErr'];
+                    unset($_SESSION['unameErr']);}
+                  ?>
+                </p>
+              </div>
+              <div>
+                <label for="newPassword">New Password</label>
+                <input type="password" name="newPassword" id="newPassword">
+                <p id="pwErr">
+                  <?php
+                  if(isset($_SESSION['pwErr'])){
+                    echo $_SESSION['pwErr'];
+                    unset($_SESSION['pwErr']);}
+                  ?>
+                </p>
+              </div>
+              <div>
+                <label for="userState">State</label>
+                <input type="text" name="userState" id="userState">
+                <p id="stateErr">
+                  <?php
+                  if(isset($_SESSION['stateErr'])){
+                    echo $_SESSION['stateErr'];
+                    unset($_SESSION['stateErr']);}
+                  ?>
+                </p>
+              </div>
+              <div>
+                <label for="userCity">City</label>
+                <input type="text" name="userCity" id="userCity">
+                <p id="cityErr">
+                  <?php
+                  if(isset($_SESSION['cityErr'])){
+                    echo $_SESSION['cityErr'];
+                    unset($_SESSION['cityErr']);}
+                  ?>
+                </p>
+              </div>
+              <div>
+                <label for="address">Address</label>
+                <input type="text" name="address" id="address">
+                <p id="addErr">
+                  <?php
+                  if(isset($_SESSION['addErr'])){
+                    echo $_SESSION['addErr'];
+                    unset($_SESSION['addErr']);}
+                  ?>
+                </p>
+              </div>
+              <div>
+                <label for="credit">Credit Card</label>
+                <input type="text" name="credit" id="credit">
+                <p id="payErr">
+                  <?php 
+                  if(isset($_SESSION['payErr'])){
+                    echo $_SESSION['payErr'];
+                    unset($_SESSION['payErr']);}
+                  ?>
+                </p>
+              </div>
+              <div class="buttons">
+                <input type="submit" value="Create Account" name="create" id="create"/>
+              </div>
+            </fieldset>
+          </form>
+        </div>
+      </div>
+    </main>
+    <footer>
+      <a href="products.html">Merchandise</a>
+    </footer>
+  </body>
+</html>

@@ -1,3 +1,10 @@
+<?php
+  session_start();
+  if(!isset($_SESSION['user'])){
+    $_SESSION['logMess'] = "Must sign in or create an account to fill out the trivia sheet";
+    header('Location: login.html');
+  }
+?>
 <!DOCTYPE html>
 <html>
   <head>
@@ -5,7 +12,7 @@
     <title>Truman Trivia</title>
     <link rel="stylesheet" href="stylesheet_med.css" media="screen and (max-width:768px)"/>
     <link rel="stylesheet" href="stylesheet.css" media="screen and (min-width:769px)"/>
-    <script src="scripts.js"></script>
+    <script src="functions.js"></script>
   </head>
   <body>
     <header>
@@ -33,10 +40,14 @@
       </nav>
     </header>
     <main>
-      <p id="triviaJSON"></p>
       <div class="trivia">
         <h1>Let's see how well you've been paying attention!</h1>
-        <form method="post" id="triviaForm">
+        <h2><?php
+          if(isset($_SESSION['trivMess'])){
+            echo $_SESSION['trivMess'];
+            unset($_SESSION['trivMess']);}
+          ?></h2>
+        <form onsubmit="return validateTrivia()" action="trivia.php" method="post" id="triviaForm">
           <fieldset>
             <legend>Trivia Time!</legend>
             <div>
@@ -49,45 +60,87 @@
                 <option>Baldwin Arena</option>
                 <option>Truman Arena</option>
               </select>
-              <p class="valid">Must select arena</p>
+              <p id="bballErr">
+                <?php
+                if(isset($_SESSION['bballErr'])){
+                  echo $_SESSION['bballErr'];
+                  unset($_SESSION['bballErr']);}
+                ?>
+              </p>
               <label for="names">How many different names has Truman State officially had?</label>
               <input type="number" placeholder="0" min="1" max = "10" name="names" id="names">
-              <p class="valid">Number must be greater than 0</p>
+              <p id="namesErr">
+                <?php
+                if(isset($_SESSION['namesErr'])){
+                  echo $_SESSION['namesErr'];
+                  unset($_SESSION['namesErr']);}
+                ?>
+              </p>
               <label for="conference">Can you type the correct acronym for Truman's athletic conference?</label>
               <input type="text" placeholder="Answer" name="conference" id="conference">
-              <p class="valid">Must enter conference</p>
+              <p id="confErr">
+                <?php
+                if(isset($_SESSION['confErr'])){
+                  echo $_SESSION['confErr'];
+                  unset($_SESSION['confErr']);}
+                ?>
+              </p>
               <label for="month">In what month would you be able to attend a Truman Week event?</label>
               <input type="month" name="month" id="month">
-              <p class="valid">Must select month</p>
-              <label for="buttons">Which of these is not present at Truman State?</label>
+              <p id="monthErr">
+                <?php
+                if(isset($_SESSION['monthErr'])){
+                  echo $_SESSION['monthErr'];
+                  unset($_SESSION['monthErr']);}
+                ?>
+              </p>
+              <label>Which of these is not present at Truman State?</label>
               <div id="buttons">
-                <input type="radio" name="extra" id="art" value = "1">
+                <input type="radio" name="extra" id="art" value = "School of Arts and Letters">
                 <label for="art">School of Arts and Letters</label><br/>
-                <input type="radio" name="extra" id="language" value = "2">
-                <label for="business">School of Language and Education</label><br/>
-                <input type="radio" name="extra" id="health" value = "3">
+                <input type="radio" name="extra" id="language" value = "School of Language and Education">
+                <label for="health">School of Language and Education</label><br/>
+                <input type="radio" name="extra" id="health" value = "School of Health Sciences and Education">
                 <label for="health">School of Health Sciences and Education</label><br/>
-                <input type="radio" name="extra" id="science" value = "4">
+                <input type="radio" name="extra" id="science" value = "School of Science and Mathematics">
                 <label for="science">School of Science and Mathematics</label><br/>
-                <input type="radio" name="extra" id="social" value = "5">
+                <input type="radio" name="extra" id="social" value = "School of Social and Cultural Studies">
                 <label for="social">School of Social and Cultural Studies</label>
               </div>
-              <p class="valid">Must select school</p>
-              <label for="checks">What cardinal direction is Kirksville in Missouri?</label>
+              <p id="extraErr">
+                <?php
+                if(isset($_SESSION['extraErr'])){
+                  echo $_SESSION['extraErr'];
+                  unset($_SESSION['extraErr']);}
+                ?>
+              </p>
+              <label>What cardinal direction is Kirksville in Missouri?</label>
               <div id="checks">
-                <input type="checkbox" name="locate" id="N1" value="0">
+                <input type="checkbox" name="locate[]" id="N1" value="North">
                 <label for="N1">North</label><br/>
-                <input type="checkbox" name="locate" id="N2" value="0">
+                <input type="checkbox" name="locate[]" id="N2" value="North">
                 <label for="N2">North</label><br/>
-                <input type="checkbox" name="locate" id="N3" value="0">
+                <input type="checkbox" name="locate[]" id="N3" value="North">
                 <label for="N3">North</label><br/>
-                <input type="checkbox" name="locate" id="S" value="1">
+                <input type="checkbox" name="locate[]" id="S" value="South">
                 <label for="S">South</label>
               </div>
-              <p class="valid">Must select at least one direction</p>
+              <p id="locateErr">
+                <?php
+                if(isset($_SESSION['locateErr'])){
+                  echo $_SESSION['locateErr'];
+                  unset($_SESSION['locateErr']);}
+                ?>
+              </p>
               <label for="spike">What is the name of Truman's beloved mascot?</label>
               <input type="text" placeholder="Answer" name="spike" id="spike">
-              <p class="valid">Must enter mascot name</p>
+              <p id="mascErr">
+                <?php
+                if(isset($_SESSION['mascErr'])){
+                  echo $_SESSION['mascErr'];
+                  unset($_SESSION['mascErr']);}
+                ?>
+              </p>
               <div>
                 <input type="submit"/>
                 <input type="reset"/>
@@ -97,6 +150,13 @@
         </form>
       </div>
     </main>
-    <footer></footer>
+    <footer>
+      <a href="products.html">Merchandise</a>
+      <?php
+        if(isset($_COOKIE['currentOrder'])) {
+          echo "<a href='checkout.html'>Checkout</a>";
+        }
+      ?>
+    </footer>
   </body>
 </html>

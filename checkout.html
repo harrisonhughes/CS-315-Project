@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Truman Merchandise</title>
+    <link rel="stylesheet" href="stylesheet_med.css" media="screen and (max-width:768px)"/>
+    <link rel="stylesheet" href="stylesheet.css" media="screen and (min-width:769px)"/>
+    <script src="functions.js"></script>
+  </head>
+  <body>
+    <header>
+      <nav>
+        <a href="home.html">Home</a></li>
+        <div class="homemenu">
+          <h1>Navigation</h1>
+          <div>
+            <a href="information.html">Information</a>
+            <a href="kirksville.html">Kirksville</a>
+            <a href="academics.html">Academics</a>
+            <a href="athletics.html">Athletics</a>
+            <a href="trivia.html">Trivia</a>
+          </div>
+        </div>
+        <div class="dropmenu">
+          <h1>History</h1>
+          <div>
+            <a href="normal.html">A Normal Start</a>
+            <a href="teachers.html">Teacher Training</a>
+            <a href="nemo.html">Regional Roots</a>
+            <a href="today.html">Truman Today</a>
+          </div>
+        </div>
+      </nav>
+    </header>
+    </nav>
+    <main class="checkout">
+      <aside>
+        <p>
+          Welcome,
+          <br>
+          <?php
+            session_start(); 
+            if(isset($_SESSION['user'])){
+              echo $_SESSION['user'];
+            }
+            else{
+              echo "Customer";
+            }
+          ?>
+        </p> 
+        <a href="login.html">
+          <?php
+            if(isset($_SESSION['user'])){
+              echo "Log Out";
+            }
+            else{
+              echo "Sign In";
+            }
+          ?>
+        </a>
+        <a href="products.html">Products</a>
+        <a href="account.html">Account</a>
+        <a href="checkout.html">Checkout</a>
+      </aside>
+      <div>
+        <h1>Order Summary</h1>
+        <h2 id="checkMess"><?php
+          if(isset($_SESSION['checkMess'])){
+          echo $_SESSION['checkMess'];
+          unset($_SESSION['checkMess']);}
+        ?></h2>
+        <h2 id="checkErr"><?php
+          if(isset($_SESSION['checkErr'])){
+          echo $_SESSION['checkErr'];
+          unset($_SESSION['checkErr']);}
+        ?></h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Product</th>
+              <th>Price</th>
+              <th>Quantity</th>
+              <th>Total</th>
+            </tr>
+          </thead>
+            <tbody>
+              <?php 
+                include 'functions.php';
+                fillCart();
+              ?>
+        </table>
+        <form action="checkout.php" method="post">
+          <fieldset>
+            <input type="submit" value="Clear Order" name="clear" id="clear"/>
+            <input type="submit" value="<?php
+              session_start();
+              if(isset($_SESSION['user'])){
+                echo 'Checkout';
+              }
+              else{
+                echo 'Checkout as Guest';
+              }
+            ?>" name="submit" id="submit"/>
+          </fieldset>
+        </form>
+      </div>
+    </main>
+    <footer>
+      <a href="products.html">Merchandise</a>
+    </footer>
+  </body>
+</html>

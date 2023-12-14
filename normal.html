@@ -64,6 +64,13 @@
         </div>
       </div>
     </main>
-    <footer></footer>
+    <footer>
+      <a href="products.html">Merchandise</a>
+      <?php
+        if(isset($_COOKIE['currentOrder'])) {
+          echo "<a href='checkout.html'>Checkout</a>";
+        }
+      ?>
+    </footer>
   </body>
 </html>
