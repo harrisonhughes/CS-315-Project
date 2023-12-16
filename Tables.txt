@@ -60,7 +60,7 @@ CREATE TABLE trivia(
     num_names INT(2),
     conference VARCHAR(20),
     month VARCHAR(15),
-    school VARCHAR(25),
+    school VARCHAR(50),
     directions VARCHAR(25),
     mascot VARCHAR(25)
 )
