@@ -1,4 +1,4 @@
-#Website Navigation
+##Website Navigation##
 Pictures: Contains all images used in main pages for wide screen size
 Pictures_Med: Contains all images used in main pages for slim screen size
 Shopping: Contains all images used in shopping pages for wide screen size
