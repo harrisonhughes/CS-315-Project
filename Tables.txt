@@ -1,0 +1,67 @@
+Database: project_tables
+
+CREATE TABLE users(
+    username VARCHAR(20) PRIMARY KEY, 
+    password VARCHAR(20) NOT NULL,
+    name VARCHAR(50), 
+    state VARCHAR(20), 
+    city VARCHAR(50), 
+    address VARCHAR(50),
+    payment VARCHAR(20)
+)
+
+CREATE TABLE products(
+    pid INT(2) AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(50),
+    price float,
+    image VARCHAR(50)
+)
+
+CREATE TABLE orders(
+    orderid INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50),
+    p0 INT(4) DEFAULT 0,
+    p1 INT(4) DEFAULT 0,
+    p2 INT(4) DEFAULT 0,
+    p3 INT(4) DEFAULT 0,
+    p4 INT(4) DEFAULT 0,
+    p5 INT(4) DEFAULT 0,
+    p6 INT(4) DEFAULT 0,
+    p7 INT(4) DEFAULT 0,
+    p8 INT(4) DEFAULT 0,
+    p9 INT(4) DEFAULT 0,
+    p10 INT(4) DEFAULT 0,
+    p11 INT(4) DEFAULT 0,
+    total INT DEFAULT 0,
+    order_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+)
+
+CREATE TABLE order_info(
+    orderid INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(50),
+    state VARCHAR(20), 
+    city VARCHAR(50),
+    address VARCHAR(50),
+    payment VARCHAR(20)
+)
+   
+CREATE TABLE applications(
+    name VARCHAR(50) PRIMARY KEY,
+    state VARCHAR(20), 
+    city VARCHAR(50), 
+    school VARCHAR(30),
+    major VARCHAR(20),
+    excitement INT(3)
+)
+
+CREATE TABLE trivia(
+    username VARCHAR(50) PRIMARY KEY,
+    stadium VARCHAR(50),
+    num_names INT(2),
+    conference VARCHAR(20),
+    month VARCHAR(15),
+    school VARCHAR(25),
+    direction VARCHAR(25),
+    mascot VARCHAR(25)
+)
+
