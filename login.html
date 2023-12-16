@@ -1,7 +1,10 @@
 <?php
-  session_start();
+  session_start(); 
+
+  // Assert that a user cannot log out if they have items added to their shopping cart
   if(isset($_SESSION['user'])){
-    if(isset($_COOKIE['currentOrder'])){
+    if(isset($_COOKIE['currentOrder'])){ 
+      // Save error message and load the checkout webpage
       $_SESSION['checkErr'] = "You still have items in your shopping cart!";
       header("Location: checkout.html");
       exit();
@@ -57,6 +60,7 @@
       <div>
         <h1>Sign In or Create an Account</h1>
         <h2><?php
+          // If a login error message is currently saved, display it and reset
           if(isset($_SESSION['logMess'])){
             echo $_SESSION['logMess'];
             unset($_SESSION['logMess']);}
@@ -67,11 +71,13 @@
               <div>
                 <label for="username">Username</label>
                 <input type="text" name="username" id="username" value="<?php
+                  // Fill in username input block with the username of the previous account
                   if(isset($_COOKIE['prevUser']))
                     echo $_COOKIE['prevUser'];
                   ?>">
                 <p id="userErr">
-                  <?php
+                  <?php 
+                  // Each of these error blocks will display the input-relative error and reset
                   if(isset($_SESSION['userErr'])){
                     echo $_SESSION['userErr'];
                     unset($_SESSION['userErr']);}
@@ -80,7 +86,11 @@
               </div>
               <div>
                 <label for="password">Password</label>
-                <input type="password" name="password" id="password">
+                <input type="password" name="password" id="password" value="<?php
+                // Fill in password input block with the username of the previous account
+                if(isset($_COOKIE['prevPass']))
+                  echo $_COOKIE['prevPass'];
+                ?>">
                 <p id="pwordErr">
                   <?php
                   if(isset($_SESSION['pwordErr'])){

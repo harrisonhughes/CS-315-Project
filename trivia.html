@@ -1,8 +1,10 @@
 <?php
   session_start();
+  // Accesss control to prevent accesss to this page unless uer is signed in
   if(!isset($_SESSION['user'])){
+    // Save error message and redirect to login page
     $_SESSION['logMess'] = "Must sign in or create an account to fill out the trivia sheet";
-    header('Location: login.html');
+    header('Location: login.html'); 
   }
 ?>
 <!DOCTYPE html>
@@ -43,6 +45,7 @@
       <div class="trivia">
         <h1>Let's see how well you've been paying attention!</h1>
         <h2><?php
+          // Display and reset error messages for each input type
           if(isset($_SESSION['trivMess'])){
             echo $_SESSION['trivMess'];
             unset($_SESSION['trivMess']);}
@@ -153,6 +156,7 @@
     <footer>
       <a href="products.html">Merchandise</a>
       <?php
+      // Add a checkout link to the footer if the user has items in shopping cart
         if(isset($_COOKIE['currentOrder'])) {
           echo "<a href='checkout.html'>Checkout</a>";
         }

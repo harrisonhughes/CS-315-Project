@@ -1,8 +1,13 @@
 <?php
   session_start();
+  // Access control for account page; customer must be signed in to acces page
   if(!isset($_SESSION['user'])){
     $_SESSION['logMess'] = "Must sign in or create an account to view information and past orders";
-    header('Location: login.html');
+    header('Location: login.html'); // Redirect to login if not signed in 
+  }
+  // If user presses "order history" submit button, redirect to account history page
+  else if($_SERVER["REQUEST_METHOD"] == "POST") {
+    header('Location: accountHistory.html');
   }
 ?>
 
@@ -45,8 +50,8 @@
         <p>
           Welcome,
           <br>
-          <?php
-            session_start(); 
+          <?php 
+            // Display user name in nav bar if user is signed in
             if(isset($_SESSION['user'])){
               echo $_SESSION['user'];
             }
@@ -57,6 +62,7 @@
         </p> 
         <a href="login.html">
           <?php
+            // If user is logged in, login.html will turn into a log-out trigger. Label it correctly 
             if(isset($_SESSION['user'])){
               echo "Log Out";
             }
@@ -71,15 +77,104 @@
       </aside>
     <div>
       <h1>Account Information</h1>
-        <?php
-          include 'functions.php';
-          fillAccount();
+        <?php      
+          include_once 'functions.php';
+          try{
+            $pdo = connect(); // 'functions.php' connect() to access database
+      
+            if(isset($_SESSION['user'])){
+              // Obtain username from session variable
+              $username = $_SESSION['user'];
+              
+              // Prepare and execute query to obtain user information
+              $sql = "SELECT * FROM users WHERE username = ?";
+              $result = $pdo->prepare($sql);
+              $result->execute([$username]);
+              $user = $result->fetch();
+              
+              // Display user information to page
+              if($user){
+                echo "<table>
+                  <tbody>
+                    <tr>
+                      <th>Username</th>
+                      <td>{$user['username']}</td>
+                    </tr>
+                    <tr>
+                    <th>Password</th>
+                    <td>{$user['password']}</td>
+                    </tr>
+                      <tr>
+                      <th>Name</th>
+                      <td>{$user['name']}</td>
+                    </tr>
+                    <tr>
+                      <th>State</th>
+                      <td>{$user['state']}</td>
+                    </tr>
+                    <tr>
+                      <th>City</th>
+                      <td>{$user['city']}</td>
+                    </tr>
+                    <tr>
+                      <th>Address</th>
+                      <td>{$user['address']}</td>
+                    </tr>
+                    <tr>
+                      <th>Credit Card</th>
+                      <td>{$user['payment']}</td>
+                    </tr>
+                  </tbody>
+                </table>";
+      
+                // Prepare and execute select query to obtain user orders
+                $sql = "SELECT * FROM orders WHERE username = ?";
+                $result = $pdo->prepare($sql);
+                $result->execute([$username]);
+                $orders = $result->fetchAll();
+
+                // If the user has any order history, obtain number of orders, and total amount spent
+                if($orders){
+                  $numOrders = count($orders);
+                  $totalSpent = 0;
+                  foreach($orders as $order){
+                    $totalSpent += $order['total'];
+                  }
+                  // Truncate value of total amount spent
+                  $totalSpent = number_format($totalSpent, 2);
+      
+                  // Variable to change 'Order' to 'Orders' when orderhistory is > 1
+                  if($numOrders > 1){
+                    $plural = "s";
+                  }
+      
+                  // Display order statistics message
+                  echo "<p>You have spent <b>\${$totalSpent}</b> over <b>{$numOrders}</b> order{$plural}.</p>
+                  <form method='post'>
+                    <fieldset>
+                      <input type='submit' value='Order History' name='hist' id='hist'/>
+                    </fieldset>
+                  </form>";
+                }
+                // Otherwise, no order calculations are needed: no order has been made by user
+                else{
+                  echo "<p>You have not ordered any items yet.";
+                }
+              }
+            }
+          }
+          // Display database connection issues
+          catch (PDOException $e){
+            die( $e->getMessage());
+          }
+          $pdo = null;
         ?>
     </div>
     </main>
     <footer>
       <a href="products.html">Merchandise</a>
       <?php
+      // Add a checkout link to the footer if the user has items in shopping cart
         if(isset($_COOKIE['currentOrder'])) {
           echo "<a href='checkout.html'>Checkout</a>";
         }

@@ -67,6 +67,7 @@
     <footer>
       <a href="products.html">Merchandise</a>
       <?php
+        // Add a checkout link to the footer if the user has items in shopping cart
         if(isset($_COOKIE['currentOrder'])) {
           echo "<a href='checkout.html'>Checkout</a>";
         }

@@ -50,6 +50,7 @@
         </div>
         <div>
           <h2><?php session_start();
+            // Display and reset error messages for each input type
             if(isset($_SESSION['applyMess'])){
               echo $_SESSION['applyMess'];
               unset($_SESSION['applyMess']);}
@@ -135,6 +136,7 @@
     <footer>
       <a href="products.html">Merchandise</a>
       <?php
+        // Add a checkout link to the footer if the user has items in shopping cart
         if(isset($_COOKIE['currentOrder'])) {
           echo "<a href='checkout.html'>Checkout</a>";
         }

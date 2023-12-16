@@ -39,6 +39,7 @@
           <br>
           <?php
             session_start(); 
+            // Display user name in nav bar if user is signed in
             if(isset($_SESSION['user'])){
               echo $_SESSION['user'];
             }
@@ -49,6 +50,7 @@
         </p> 
         <a href="login.html">
           <?php
+          // If user is logged in, login.html will turn into a log-out trigger. Label it correctly 
             if(isset($_SESSION['user'])){
               echo "Log Out";
             }
@@ -65,18 +67,147 @@
         <h1>Order History</h1>
         <div>
           <?php
-            include 'functions.php';
-            fillInfo();
+            include_once 'functions.php';
+            try{
+              $pdo = connect(); // 'functions.php' connect() to access database
+        
+              if(isset($_SESSION['user'])){
+                $username = $_SESSION['user']; // Obtain username 
+                
+                // Prepare and execute select query to obtain all user orders
+                $sql = "SELECT * FROM orders WHERE username = ?";
+                $result = $pdo->prepare($sql);
+                $result->execute([$username]);
+                $allOrders = $result->fetchAll();
+                
+                // If user has any past orders
+                if($allOrders){
+                  // "Page" is used to cycle through past orders, done through submit buttons
+                  // Page starts at 1, and cannot go lower than 1
+                  if(!isset($_SESSION['page']) || $_SESSION['page'] < 1){
+                    $_SESSION['page'] = 1; 
+                  }
+                  // Page cannot be greater than number of past orders
+                  else if($_SESSION['page'] > count($allOrders)){
+                    $_SESSION['page'] = count($allOrders); 
+                  }
+                  $page = $_SESSION['page'];
+                  $order = $allOrders[$page - 1]; // Obtain correct order from "page"
+        
+                  // Prepare and execute select query to obtain current user order information
+                  $sql = "SELECT * FROM order_info WHERE orderid = ?";
+                  $result = $pdo->prepare($sql);
+                  $result->execute([test_input($order['orderid'])]);
+                  $orderInfo = $result->fetch();
+        
+                  // Display user order information 
+                  echo "<h2>Order #{$page} <em>({$order['order_date']})</em></h2>
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Name</th>
+                        <th>State</th>
+                        <th>City</th>
+                        <th>Address</th>
+                        <th>Credit Card</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>{$orderInfo['name']}</td>
+                        <td>{$orderInfo['state']}</td>
+                        <td>{$orderInfo['city']}</td>
+                        <td>{$orderInfo['address']}</td>
+                        <td>{$orderInfo['payment']}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <h2>Order Details</h2>
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Product</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Total</th>
+                      </tr>
+                    </thead>
+                    <tbody>";
+        
+                  // Select query to get product information, needed for order details
+                  $sql = "SELECT * FROM products";
+                  $result = $pdo->query($sql);
+                  $products = $result->fetchAll();
+                  $numItems = count($products);
+        
+                  // Remove non-product columns from order array, obtain product keys
+                  $order = array_slice($order, 3, -3);
+                  $orderKeys = array_keys($order);
+        
+                  // Cycle through each product in current order, and display the order details
+                  foreach($orderKeys as $pid){
+                    // If product was included in order, it must be displayed
+                    if($order["p{$pid}"] > 0){
+                      $pname = $products[$pid]['name'];
+                      $pprice = $products[$pid]['price'] - 5;
+                      $pquant = $order["p{$pid}"];
+        
+                      // Recalculate order totals and tax
+                      $ptotal = number_format($pquant * $pprice, 2);
+                      $subtotal = number_format($order['total'] / 1.0835, 2);
+                      $tax = number_format(($order['total'] / 1.0835) * .0835, 2);
+                      $orderTotal = number_format($order['total'], 2);
+        
+                      echo "<tr>
+                        <td>{$pname}</td>
+                        <td>\${$pprice}</td>
+                        <td>{$pquant}</td>
+                        <td>\${$ptotal}</td>
+                        </tr>";
+                    }
+                  }
+                  // Display all information and details of current product in order
+                  echo "</tbody>
+                    <tfoot>
+                      <tr>
+                        <td></td>
+                        <td></td>
+                        <td><b>Subtotal</b></td>
+                        <td>\$$subtotal</td>
+                      </tr>
+                      <tr>
+                      <td></td>
+                      <td></td>
+                      <td><b>Tax (8.35%)</b></td>
+                      <td>\$$tax</td>
+                    </tr>
+                      <tr>
+                          <td></td>
+                          <td></td>
+                          <td><b>Total</b></td>
+                          <td>\$$orderTotal</td>
+                        </tr?
+                      </tfoot>
+                  </table>";
+                }
+              }
+            }
+            // Display database connection issues
+            catch (PDOException $e){
+              die( $e->getMessage());
+            }
+            $pdo = null;
           ?>
           <form method="post" action="
-            <?php if($_SERVER['REQUEST_METHOD'] == 'POST'){
-              session_start(); 
-              if(isset($_POST['next'])){
-                $_SESSION['page']++;
-              }else{
-                $_SESSION['page']--;
-              }
-              header('Location: accountHistory.html');}
+            <?php 
+              // Increment or decrement order page based on button pressed
+              if($_SERVER['REQUEST_METHOD'] == 'POST'){ 
+                if(isset($_POST['next'])){
+                  $_SESSION['page']++;
+                }else{
+                  $_SESSION['page']--;
+                }
+                header('Location: accountHistory.html');}
               ?>">
             <fieldset>
               <input type="submit" value="< Prev" name="prev" id="prev"/>
@@ -89,6 +220,7 @@
     <footer>
       <a href="products.html">Merchandise</a>
       <?php
+        // Add a checkout link to the footer if the user has items in shopping cart
         if(isset($_COOKIE['currentOrder'])) {
           echo "<a href='checkout.html'>Checkout</a>";
         }

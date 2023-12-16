@@ -40,6 +40,7 @@
           <br>
           <?php
             session_start(); 
+            // Display user name in nav bar if user is signed in
             if(isset($_SESSION['user'])){
               echo $_SESSION['user'];
             }
@@ -50,6 +51,7 @@
         </p> 
         <a href="login.html">
           <?php
+            // If user is logged in, login.html will turn into a log-out trigger. Label it correctly 
             if(isset($_SESSION['user'])){
               echo "Log Out";
             }
@@ -65,6 +67,7 @@
       <div>
         <h1>Order Summary</h1>
         <h2 id="checkMess"><?php
+          // Display and reset checkout messages or errors
           if(isset($_SESSION['checkMess'])){
           echo $_SESSION['checkMess'];
           unset($_SESSION['checkMess']);}
@@ -85,15 +88,95 @@
           </thead>
             <tbody>
               <?php 
-                include 'functions.php';
-                fillCart();
+                include_once 'functions.php';
+                try {
+                  if(isset($_SESSION['order'])){
+                    $pdo = connect(); // 'functions.php' connect() to access database
+                    $runningTotal = 0; // Total price over all products in cart
+                    $orderKeys = array_keys($_SESSION['order']); // Holds product ID for each item in
+            
+                    // Cycle through each product in cart, display quantity, price, and information
+                    foreach($orderKeys as $pid){
+                      // Prepare and execute select query to obtain current product information
+                      $sql = "SELECT * FROM products WHERE pid = ?";
+                      $result = $pdo->prepare($sql);
+                      $result->execute([test_input($pid)]);
+                      $product = $result->fetch();
+            
+                      // Set variables for product information
+                      $name = $product['name'];
+                      $quantity = $_SESSION['order'][$pid];
+            
+                      // Special user price is $5 cheaper for each product
+                      if(isset($_SESSION['user'])){
+                        $price = $product['price'] - 5;
+                      }
+                      else{
+                        $price = $product['price'];
+                      }
+            
+                      // Maintain running total, truncate current product total price
+                      $total = number_format($price * $quantity, 2);
+                      $runningTotal += ($price * $quantity);
+            
+                      // Display row of all product information in order
+                      echo "<tr>
+                            <td>{$name}</td>
+                            <td>\${$price}</td>
+                            <td>$quantity</td>
+                            <td>\${$total}</td>
+                        </tr>";
+                    }
+                    
+                    // After all products are displayed, calculate and truncate total order calculations
+                    $tax = number_format($runningTotal * 0.0835, 2);
+                    $net = number_format($runningTotal * 1.0835, 2);
+                    $runningTotal = number_format($runningTotal, 2);
+                    $_SESSION['total'] = $net;
+                  }
+                  // Otherwise, no products in cart, so all order calculations are 0
+                  else{
+                    $runningTotal = number_format(0, 2);
+                    $tax = number_format(0, 2);
+                    $net = number_format(0, 2);
+                    $_SESSION['total'] = 0;
+                  }
+            
+                  // Display foot of table containing all order price calculations
+                  echo "</tbody>
+                  <tfoot>
+                    <tr>
+                      <td></td>
+                      <td></td>
+                      <td><b>Subtotal</b></td>
+                      <td>\${$runningTotal}</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td></td>
+                      <td><b>Tax (8.35%)</b></td>
+                      <td>\${$tax}</td>
+                    </tr>
+                    <tr>
+                    <td></td>
+                    <td></td>
+                    <td><b>Total</b></td>
+                    <td>\${$net}</td>
+                  </tr>
+                  </tfoot>";
+                }
+                // Display database connection issues
+                catch (PDOException $e){
+                  die( $e->getMessage());
+                }
+                $pdo = null;
               ?>
         </table>
         <form action="checkout.php" method="post">
           <fieldset>
             <input type="submit" value="Clear Order" name="clear" id="clear"/>
             <input type="submit" value="<?php
-              session_start();
+              // Display custom checkout button depending on user login status
               if(isset($_SESSION['user'])){
                 echo 'Checkout';
               }

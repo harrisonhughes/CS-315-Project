@@ -772,6 +772,7 @@ nav>div:hover>div{
   color: #510c76;
 }
 
+/* Configure aside nav bar for shopping pages*/
 aside{
   display: flex;
   flex-direction: row;
@@ -779,10 +780,12 @@ aside{
   justify-content: center;
 }
 
+/* Remove welcome message to save space */
 aside p{
   display: none;
 }
 
+/* Customize each element in aside nav bar*/
 aside>*{
   padding: 20px;
   font-weight: bold;
@@ -793,6 +796,7 @@ aside>*{
   border-bottom: 1px solid black;
 }
 
+/*Customize page for products.html*/
 .shopping>div{
   display: flex;
   flex-direction: column;
@@ -805,6 +809,7 @@ aside>*{
   margin-bottom: 10px;
 }
 
+/* Message popup customization*/
 .shopping h2{
   margin: 0px;
   padding: 0px;
@@ -813,6 +818,7 @@ aside>*{
   font-weight: normal;
 }
 
+/* Products block */
 .shopping>div>div{
   display: flex;
   flex-direction: row;
@@ -821,6 +827,7 @@ aside>*{
   padding: 20px;
 }
 
+/* Align and space each product*/
 .shopping figure{
   display: flex;
   flex-direction: column;
@@ -829,6 +836,7 @@ aside>*{
   margin: 5px;
 }
 
+/* Turn product text blue if currently in shopping cart*/
 .shopping .recentlyOrdered{
   color: #00A8E2
 }
@@ -841,6 +849,7 @@ aside>*{
   color:#00A8E2;
 }
 
+/* Constant height amongst product images*/
 .shopping img{
   height: 140px;
 }
@@ -853,11 +862,13 @@ aside>*{
   font-size: 9pt;
 }
 
+/* Price caption */
 .shopping figure figcaption:last-child{
   font-weight: normal; 
   margin: 0px;
 }
 
+/* Customize login.html page*/
 .login>div{
   display: flex;
   flex-direction: column;
@@ -871,6 +882,7 @@ aside>*{
   text-align: center;
 }
 
+/* Login error messages*/
 .login h2{
   margin: 0px;
   padding: 0px;
@@ -879,6 +891,7 @@ aside>*{
   font-weight: normal;
 }
 
+/* Input error messages */
 .login form p{
   margin: 0px;
   color: red;
@@ -911,6 +924,7 @@ aside>*{
   border-radius: 3px;
 }
 
+/* Submission buttons in login form*/
 .buttons{
   display: flex;
   flex-direction: row;
@@ -932,6 +946,7 @@ aside>*{
   color: #00A8E2;
 }
 
+/* Customize display of item.php*/
 .item>div{
   display: flex;
   flex-direction: row;
@@ -947,6 +962,7 @@ aside>*{
   justify-content: center;
 }
 
+/* Input error display*/
 .item #numErr{
   margin-top: 0px;
   color: red;
@@ -1010,6 +1026,7 @@ aside>*{
   border: none;
 }
 
+/* Customize checkout.html page*/
 .checkout>div{
   display: flex;
   flex-direction: column;
@@ -1022,6 +1039,7 @@ aside>*{
   margin-bottom: 10px;
 }
 
+/* Feedback messages */
 .checkout #checkMess{
   margin: 0px;
   padding: 0px;
@@ -1030,6 +1048,7 @@ aside>*{
   font-weight: normal;
 }
 
+/* Error messages*/
 .checkout #checkErr{
   margin: 0px;
   padding: 0px;
@@ -1043,6 +1062,7 @@ aside>*{
   margin-top: 10px;
 }
 
+/* Space footer away from table body */
 .checkout tfoot tr:first-child td{
   padding-top: 15px;
 }
@@ -1053,6 +1073,7 @@ aside>*{
   white-space: nowrap;
 }
 
+/* Product name cell */
 .checkout tr td:first-child{
   width: 150px;
 }
@@ -1083,6 +1104,7 @@ aside>*{
   border-color: #00A8E2;
 }
 
+/* Customize account.html page */
 .account>div{
   display: flex;
   flex-direction: column;
@@ -1125,6 +1147,7 @@ aside>*{
   border-color: #00A8E2;
 }
 
+/* Customize accountHistory.html page */
 .orderHist div{
   display: flex;
   flex-direction: column;
@@ -1137,6 +1160,7 @@ aside>*{
   margin-bottom: 15px;
 }
 
+/* Order history box */
 .orderHist>div>div{
   display: flex;
   flex-direction: column;
@@ -1147,6 +1171,7 @@ aside>*{
   border-radius: 5px;
 }
 
+/* Order time inline block */
 .orderHist em{
   font-weight: normal;
 }
@@ -1161,14 +1186,17 @@ aside>*{
   padding-inline: 5px;
 }
 
+/* Space footer away from table body */
 .orderHist tfoot tr:first-child td{
   padding-top: 10px;
 }
 
+/* Align product price to end of cell */
 .orderHist table:last-of-type tr td:last-child{
   text-align: end;
 }
 
+/* Form takes up entire widht of parent block */
 .orderHist form{
   width: 100%;
 }
@@ -1193,6 +1221,7 @@ aside>*{
   color: #00A8E2;
 }
 
+/* Customize placeOrder.php page*/
 .placeOrder>div{
   display: flex;
   flex-direction: column;
@@ -1205,6 +1234,7 @@ aside>*{
   margin-bottom: 10px;
 }
 
+/* Error messages */
 .placeOrder h2{
   margin: 0px;
   padding: 0px;
@@ -1221,15 +1251,18 @@ aside>*{
   border: none;
 }
 
+/* Cuztomize list of products in cart block, and account info form */
 .productList, .accountInfo{
   margin-inline: 10px;
 }
 
+/* List of products block on left of placeOrder.php page */
 .productList table{
   height: fit-content;
   margin-bottom: 20px;
 }
 
+/* Separate each product into its own block */
 .productList tr{
   display: flex;
   flex-direction: row;
@@ -1251,6 +1284,7 @@ aside>*{
   white-space: nowrap;
 }
 
+/* 'X' product deletion cell */
 .productList td:first-child{
   align-self: start;
   justify-self: start;
@@ -1258,6 +1292,7 @@ aside>*{
   padding: 0px;
 }
 
+/* Product image cell */
 .productList td:nth-child(2){
   display: flex;
   flex-direction: row;
@@ -1266,15 +1301,18 @@ aside>*{
   padding-left: 0px;
 }
 
+/* Product name cell */
 .productList td:nth-child(3){
   width: 130px;
 }
 
+/* Product quant slider cell */
 .productList td:nth-child(4){
   width: 75px;
   font-size: 13pt;
 }
 
+/* Product price cell */
 .productList td:nth-child(5){
   padding-right: 8px;
 }
@@ -1284,20 +1322,24 @@ aside>*{
   background-color: white;
 }
 
+/* 'X' product removal button */
 .productList td:first-child input{
   font-size: 16pt;
   color: black;
 }
 
+/* + and - quantity alteration buttons */
 .productList td:nth-child(4) input{
   font-size: 13pt;
   color:#510c76;
 }
 
+/* x, +, and - buttons */
 .productList input[type="submit"]:hover{
   font-weight: bold;
 }
 
+/* 'x' button hover*/
 .productList td:first-child input:hover{
   color: rgb(183, 28, 28);
 }
@@ -1307,12 +1349,14 @@ aside>*{
   margin: 0px;
 }
 
+/* left side account information form in placeOrder.php*/
 .accountInfo label{
   display: inline-block;
   min-width: 100px;
   font-weight: bold;
 }
 
+/* All text input blocks */
 .accountInfo input[type="text"]{
   margin-block: 6px;
   padding: 4px;
@@ -1329,12 +1373,14 @@ aside>*{
   text-align: center;
 }
 
+/* Place Order button div block */
 .accountInfo>div:last-child{
   display: flex;
   flex-direction: row;
   justify-content: center;
 }
 
+/* Order total/tax/subtotal block in placeOrder.php*/
 .orderInfo{
   display: flex;
   flex-direction: column;
@@ -1354,6 +1400,7 @@ aside>*{
   margin-inline: 5px;
 }
 
+/* Place Order button */
 .accountInfo input[type="submit"]{
   padding: 8px;
   background-color: white;

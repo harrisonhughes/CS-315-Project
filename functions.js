@@ -1,4 +1,6 @@
+// Called upon a submission of a login attempt in login.php
 function validateLogin(){
+  // Assert username and password fields are not empty
   const username = document.getElementById("username").value;
   const password = document.getElementById("password").value;
   var validForm = true;
@@ -22,7 +24,9 @@ function validateLogin(){
   return validForm;
 }
 
+// Called upon a submission of a user creation attempt in login.php
 function validateCreate(){
+  // Assert each text input type is not empty, and follows its' character pattern
   const username = document.getElementById("newUsername").value;
   const password = document.getElementById("newPassword").value;
   const name = document.getElementById("fullName").value;
@@ -32,6 +36,7 @@ function validateCreate(){
   const payment = document.getElementById("credit").value;
   let validForm = true;
 
+  // Initialize elements for text variables, error block IDs, error message "titles", and character validation expressions 
   const textArr = [username, password, name, state, city, address, payment];
   const idArr = ["unameErr", "pwErr", "fnameErr", "stateErr", "cityErr", "addErr", "payErr"];
   const nameArr = ["Username", "Password", "Name", "State", "City", "Address", "Payment"];
@@ -54,7 +59,9 @@ function validateCreate(){
   return validForm;
 }
 
+// Called upon adding an item to the cart in item.php
 function validateNumber(){
+  // Assert number input type is not empty, and greater than 0
   var quantity = document.getElementById("item").value;
   if(!quantity || quantity <= 0){
     document.getElementById("numErr").innerText = "Quantity must be a positive integer";
@@ -64,7 +71,47 @@ function validateNumber(){
   return true;
 }
 
+// Called upon placing an order in placeOrder.html
+function validateOrder(event){
+  // Use event parameter to assert the submission was done by the "Place Order" button 
+  const submittedButton = event.submitter;
+  if(submittedButton.name != "confirm"){
+    return true;
+  }
+
+  // Assert each text input type is not empty, and follows its' character specifications
+  const name = document.getElementById("confName").value;
+  const state = document.getElementById("confState").value;
+  const city = document.getElementById("confCity").value;
+  const address = document.getElementById("confAddress").value;
+  const payment = document.getElementById("confCredit").value;
+  let validForm = true;
+
+  const textArr = [name, state, city, address, payment];
+  const idArr = ["confNameErr", "confStateErr", "confCityErr", "confAddErr", "confCredErr"];
+  const nameArr = ["Name", "State", "City", "Address", "Payment"];
+  const validCharArr = [/^[a-zA-Z\s.\'-]+$/, /^[a-zA-Z\s]+$/, /^[a-zA-Z\s.\'-]+$/,  /^[a-zA-Z0-9\s.\'-]+$/, /^[0-9\-]+$/];
+
+  for(let i = 0; i < textArr.length; i++){
+    if(!textArr[i]){
+      validForm = false;
+      document.getElementById(idArr[i]).innerText = nameArr[i] + " cannot be empty";
+    }
+    else if(!validCharArr[i].test(textArr[i])){
+      validForm = false;
+      document.getElementById(idArr[i]).innerText = "Invalid " + nameArr[i].toLowerCase() + " format";
+    }
+    else{
+      document.getElementById(idArr[i]).innerText = "";
+    }
+  }
+
+  return validForm;
+}
+
+// Called upon a submission of a user "application" in admissions.html
 function validateApplication(){
+  // Assert all input types are not empty, and that the text types follow correct patterns
   const name = document.getElementById("name").value;
   const city = document.getElementById("city").value;
   const school = document.getElementsByName("school"); //List of radio buttons
@@ -110,7 +157,7 @@ function validateApplication(){
     document.getElementById("majorErr").innerText = "";  
   }
 
-  //Ensure a button has been pressed, save it under "school" variable if true
+  //Ensure a button has been pressed
   for(let i = 0; i < school.length; i++){
     if(school[i].checked){
       buttonSelected = true;
@@ -127,42 +174,9 @@ function validateApplication(){
   return validForm;
 }
 
-function validateOrder(event){
-  const submittedButton = event.submitter;
-  if(submittedButton.name != "confirm"){
-    return true;
-  }
-
-  const name = document.getElementById("confName").value;
-  const state = document.getElementById("confState").value;
-  const city = document.getElementById("confCity").value;
-  const address = document.getElementById("confAddress").value;
-  const payment = document.getElementById("confCredit").value;
-  let validForm = true;
-
-  const textArr = [name, state, city, address, payment];
-  const idArr = ["confNameErr", "confStateErr", "confCityErr", "confAddErr", "confCredErr"];
-  const nameArr = ["Name", "State", "City", "Address", "Payment"];
-  const validCharArr = [/^[a-zA-Z\s.\'-]+$/, /^[a-zA-Z\s]+$/, /^[a-zA-Z\s.\'-]+$/,  /^[a-zA-Z0-9\s.\'-]+$/, /^[0-9\-]+$/];
-
-  for(let i = 0; i < textArr.length; i++){
-    if(!textArr[i]){
-      validForm = false;
-      document.getElementById(idArr[i]).innerText = nameArr[i] + " cannot be empty";
-    }
-    else if(!validCharArr[i].test(textArr[i])){
-      validForm = false;
-      document.getElementById(idArr[i]).innerText = "Invalid " + nameArr[i].toLowerCase() + " format";
-    }
-    else{
-      document.getElementById(idArr[i]).innerText = "";
-    }
-  }
-
-  return validForm;
-}
-
+// Called upon a submission of a trivia form in trivia.php
 function validateTrivia(){
+    // Assert all input types are not empty, and that the text types follow correct patterns
   const select = document.getElementById("basketball");
   const names = document.getElementById("names").value;
   const conference = document.getElementById("conference").value;
@@ -174,8 +188,8 @@ function validateTrivia(){
   let buttonSelected = false;
   let boxChecked = false;
 
-
-  if(select.selectedIndex == 0){ //Ensure default value of select element is not the current selection
+  //Ensure default value of select element is not the current selection
+  if(select.selectedIndex == 0){ 
     validForm = false;
     document.getElementById("bballErr").innerText = "Must select a stadium name";
   }
@@ -242,9 +256,11 @@ function validateTrivia(){
     document.getElementById("extraErr").innerText = "Must select an option";
   }
 
+  // Ensure at least one box has been checked;
   for(let i = 0; i < checks.length; i++){
     if(checks[i].checked){ 
       boxChecked = true;
+      break;
     }
   }
   if(boxChecked){

@@ -39,6 +39,7 @@
           <br>
           <?php
             session_start(); 
+            // Display user name in nav bar if user is signed in
             if(isset($_SESSION['user'])){
               echo $_SESSION['user'];
             }
@@ -49,6 +50,7 @@
         </p> 
         <a href="login.html">
           <?php
+            // If user is logged in, login.html will turn into a log-out trigger. Label it correctly 
             if(isset($_SESSION['user'])){
               echo "Log Out";
             }
@@ -64,14 +66,61 @@
       <div>
         <h1>Truman State Merchandise</h1>
         <h2><?php
+          // If a login error message is currently saved, display it and reset
           if(isset($_SESSION['productMess'])){
             echo $_SESSION['productMess'];
             unset($_SESSION['productMess']);}
           ?></h2>
         <div>
           <?php 
-            include 'functions.php';
-            fillItems();
+            include_once 'functions.php'; 
+            try {
+              $pdo = connect(); // 'functions.php' connect() to access database
+              // Select query to obtain all product information
+              $sql = "SELECT * FROM products";
+              $result = $pdo->query($sql);
+              $products = $result->fetchAll();
+        
+              // Loop through each product in table, and display its' info on the page
+              foreach($products as $product){
+                $name = $product['name'];
+                $image = $product['image'];
+                
+                // Special user price is $5 cheaper for each product
+                if(isset($_SESSION['user'])){
+                  $price = $product['price'] - 5;
+                }
+                else{
+                  $price = $product['price'];
+                }
+                
+                // Variable holds an indicator class name if the product is currently in the cart (will turn text blue)
+                if(isset($_COOKIE[$product['pid']])){
+                  $class = "class='recentlyOrdered'";
+                }
+                else{
+                  $class = "";
+                }
+                
+                // Echo html blocks to display each product iteratively
+                echo "
+                <a href='item.php?id={$product['pid']}'>            
+                <figure {$class}>
+                <picture>
+                <source media='(min-width:769px)' srcset='Shopping/{$image}.jpg'>
+                <img src='Shopping_Med/{$image}.jpg'> 
+                </picture>
+                <figcaption>Truman State {$name}</figcaption>
+                <figcaption>\${$price}</figcaption>
+                </figure>
+                </a>";
+              }
+            }
+            // Display database connection issues
+            catch (PDOException $e){
+              die( $e->getMessage());
+            }
+            $pdo = null;
           ?>
         </div>
       </div>
@@ -79,6 +128,7 @@
     <footer>
       <a href="products.html">Merchandise</a>
       <?php
+        // Add a checkout link to the footer if the user has items in shopping cart
         if(isset($_COOKIE['currentOrder'])) {
           echo "<a href='checkout.html'>Checkout</a>";
         }

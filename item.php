@@ -1,20 +1,23 @@
 <?php
   include_once 'functions.php';
-  connect();
   session_start();
-  try {
-    $pdo = new PDO(DBCONNSTRING,DBUSER,DBPASS);
-    $pid = test_input($_GET['id']);
 
+  try {
+    $pdo = connect(); // 'functions.php' connect() to access database
+    $pid = test_input($_GET['id']); // Filter current page ID, should correspond to  specific page product
+
+    // Prepare and execute select query to obtain product information
     $sql = "SELECT * FROM products WHERE pid = ?";
     $result = $pdo->prepare($sql);
     $result->execute([$pid]);
     $product = $result->fetch();
 
+    // If product is in database, save its information
     if($product){
       $name = $product['name'];
       $image = $product['image'];
-
+      
+      // Special user price is $5 cheaper for each product
       if(isset($_SESSION['user'])){
         $price = $product['price'] - 5;
       }
@@ -22,10 +25,12 @@
         $price = $product['price'];
       }
 
-      $_SESSION['item'] = $pid;
+      $_SESSION['item'] = $pid; // Save ID for order.php to access correct product id 
     }
+    // Otherwise, product is not in the database
     else{
       header ("Location: products.html");
+      $pdo = null;
       exit();
     }
   }
@@ -76,6 +81,7 @@
             Welcome,
             <br>
             <?php
+              // Display user name in nav bar if user is signed in
               if(isset($_SESSION['user'])){
                 echo $_SESSION['user'];
               }
@@ -86,6 +92,7 @@
           </p> 
           <a href="login.html">
             <?php
+              // If user is logged in, login.html will turn into a log-out trigger. Label it correctly 
               if(isset($_SESSION['user'])){
                 echo "Log Out";
               }
@@ -115,6 +122,7 @@
               <input type="number" value="0" min="0" name="item" id="item">
             </div>
             <p id="numErr"><?php
+                // Hold and display error for incorrect quantity values (val <= 0)
                 if(isset($_SESSION['numErr'])){
                   echo $_SESSION['numErr'];
                   unset($_SESSION['numErr']);}
@@ -128,6 +136,7 @@
     <footer>
     <a href="products.html">Merchandise</a>
     <?php
+      // Add a checkout link to the footer if the user has items in shopping cart
       if(isset($_COOKIE['currentOrder'])) {
         echo "<a href='checkout.html'>Checkout</a>";
       }
