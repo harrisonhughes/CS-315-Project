@@ -49,7 +49,7 @@ CREATE TABLE applications(
     name VARCHAR(50) PRIMARY KEY,
     state VARCHAR(20), 
     city VARCHAR(50), 
-    school VARCHAR(30),
+    school VARCHAR(50),
     major VARCHAR(20),
     excitement INT(3)
 )
