@@ -61,7 +61,7 @@ CREATE TABLE trivia(
     conference VARCHAR(20),
     month VARCHAR(15),
     school VARCHAR(25),
-    direction VARCHAR(25),
+    directions VARCHAR(25),
     mascot VARCHAR(25)
 )
 
